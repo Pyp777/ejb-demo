@@ -1,23 +1,34 @@
 package ee.tutor;
 
 import javax.ejb.LocalBean;
+import javax.ejb.Remote;
+import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 
 /**
  * Session Bean implementation class SessionBean
  */
-@Stateless
-@LocalBean
+//@LocalBean
+//@Stateless
+@Stateful
+@Remote
 public class MySessionBean {
 
+	int count;
+	
     /**
      * Default constructor. 
      */
     public MySessionBean() {
         // TODO Auto-generated constructor stub
+    	System.out.println("MySessionBean.MySessionBean()");
     }
 
     public String getData() {
-    	return "The very first response from Session Bean";
+    	return "The very first response from Session Bean - iteration: " + (count++);
+    }
+    
+    public int getCount() {
+    	return count;
     }
 }

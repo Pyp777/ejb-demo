@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.ejb.EJB;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,26 +18,49 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/BeanServlet")
 public class BeanServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public BeanServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public BeanServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	@EJB
 	MySessionBean sessionBean;
-    
+
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * bean bindings
+	 * 
+	 * java:global/EJBDemoEAR/EJBDemoBeans/MySessionBean!ee.tutor.MySessionBean
+	 * java:app/EJBDemoBeans/MySessionBean!ee.tutor.MySessionBean
+	 * java:module/MySessionBean!ee.tutor.MySessionBean
+	 * ejb:EJBDemoEAR/EJBDemoBeans/MySessionBean!ee.tutor.MySessionBean
+	 * java:global/EJBDemoEAR/EJBDemoBeans/MySessionBean
+	 * java:app/EJBDemoBeans/MySessionBean java:module/MySessionBean
 	 */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		System.out.println("BeanServlet.doGet()");
-		
+
 		PrintWriter out = response.getWriter();
-		out.println("sessionBeanData: " + sessionBean.getData());
+		
+		// injected bean
+		out.println("injected bean: " + sessionBean.getData());
+
+		try {
+			// lookuped bean
+			MySessionBean bean = InitialContext.doLookup("java:app/EJBDemoBeans/MySessionBean");
+			out.println("lookuped bean: " + sessionBean.getData());
+		} catch (NamingException e) {
+			out.write(" error message: " + e.getMessage());
+		}
 	}
 
 }
