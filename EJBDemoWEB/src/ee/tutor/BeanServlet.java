@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ee.tutor.old.MyOldBean;
+import ee.tutor.old.MyOldBeanComponent;
+
 /**
  * Servlet implementation class BeanServlet
  */
@@ -30,6 +33,9 @@ public class BeanServlet extends HttpServlet {
 	@EJB
 	MySessionBean sessionBean;
 
+	@EJB
+	MyOldBeanComponent oldBean;
+	
 	/**
 	 * bean bindings
 	 * 
@@ -48,19 +54,43 @@ public class BeanServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("BeanServlet.doGet()");
+		System.out.println("MySessionBean: " + sessionBean.getClass().getName());
 
 		PrintWriter out = response.getWriter();
 		
 		// injected bean
 		out.println("injected bean: " + sessionBean.getData());
 
+		// check lookups
+		String[] lookups = new String[] {"java:global/EJBDemoEAR/EJBDemoBeans/MySessionBean!ee.tutor.MySessionBean",
+				"java:app/EJBDemoBeans/MySessionBean!ee.tutor.MySessionBean",
+				"java:module/MySessionBean!ee.tutor.MySessionBean",
+				"ejb:EJBDemoEAR/EJBDemoBeans/MySessionBean!ee.tutor.MySessionBean",
+				"java:global/EJBDemoEAR/EJBDemoBeans/MySessionBean",
+				"java:app/EJBDemoBeans/MySessionBean", 
+				"java:module/MySessionBean"}; 
+		for (String l : lookups) {
+			System.out.println("--------lookup: " + l);
+			try {
+				Object bean = InitialContext.doLookup(l);
+				System.out.println("lookuped bean: " + bean.getClass().getName());
+			} catch (Exception e) {
+				System.out.println("lookuped bean failed....");
+			}
+		}
+		
+		out.println("");
 		try {
-			// lookuped bean
+			// lookuped bean			
 			MySessionBean bean = InitialContext.doLookup("java:app/EJBDemoBeans/MySessionBean");
-			out.println("lookuped bean: " + sessionBean.getData());
+			out.println("lookuped bean: " + bean.getData());
 		} catch (NamingException e) {
 			out.write(" error message: " + e.getMessage());
 		}
+		
+		// old bean
+		out.println("");
+		out.println("injected oldBean: " + oldBean.getData());
 	}
 
 }
