@@ -41,11 +41,11 @@ public class EJBClient {
 
 		Context ctx = new InitialContext(jndiProps);
 
-		Object bean = ctx.lookup("ejb:EJBDemoEAR/EJBDemoEJB/MySessionBean");// !ee.tutor.MySessionBean
-		System.out.println("lookuped bean: " + bean);	
+		Object beanObject = ctx.lookup("ejb:EJBDemoEAR/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBeanInterface");// !ee.tutor.MySessionBean
+		System.out.println("lookuped bean: " + beanObject);	
 		
-		//org.jboss.ejb.client.naming.ejb.EjbNamingContext ctx = (org.jboss.ejb.client.naming.ejb.EjbNamingContext)bean; 
-		//System.out.println("lookuped bean: " + bean.getData());
+		ee.tutor.MySessionBeanInterface bean = (ee.tutor.MySessionBeanInterface)beanObject; 
+		System.out.println("lookuped bean: " + bean.getData());
 	}
 	
 	/**
@@ -86,9 +86,8 @@ public class EJBClient {
 		env.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
 		env.put("jboss.naming.client.ejb.context", true);
 		env.put("jboss.naming.client.connect.options.org.xnio.Options.SASL_POLICY_NOPLAINTEXT", "false");
-		env.put("jboss.naming.client.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS", "false");
-
 		// credentials
+		env.put("jboss.naming.client.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS", "true");
 		env.put(Context.SECURITY_PRINCIPAL, "admin");
 		env.put(Context.SECURITY_CREDENTIALS, "admin");
 

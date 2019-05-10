@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ee.tutor.old.MyOldBean;
 import ee.tutor.old.MyOldBeanComponent;
 
 /**
@@ -31,7 +30,7 @@ public class BeanServlet extends HttpServlet {
 	}
 
 	@EJB
-	MySessionBean sessionBean;
+	MySessionBeanInterface sessionBean;
 
 	@EJB
 	MyOldBeanComponent oldBean;
@@ -44,7 +43,7 @@ public class BeanServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("BeanServlet.doGet()");
-		System.out.println("MySessionBean: " + sessionBean.getClass().getName());
+		System.out.println("MySessionBeanInterface: " + sessionBean.getClass().getName());
 
 		PrintWriter out = response.getWriter();
 		
@@ -53,14 +52,14 @@ public class BeanServlet extends HttpServlet {
 
 		// check lookups
 		String[] lookups = new String[] { 
-				"ejb:EJBDemoEAR/EJBDemoEJB/MySessionBean",
-				"ejb:EJBDemoEAR/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean",
-				"java:global/EJBDemoEAR/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean", 
-				"java:app/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean", 
-				"java:module/MySessionBean!ee.tutor.MySessionBean", 
-				"java:global/EJBDemoEAR/EJBDemoEJB/MySessionBean", 
-				"java:app/EJBDemoEJB/MySessionBean", 
-				"java:module/MySessionBean", 
+				"ejb:EJBDemoEAR/EJBDemoEJB/MySessionBeanInterface",
+				"ejb:EJBDemoEAR/EJBDemoEJB/MySessionBeanInterface!ee.tutor.MySessionBeanInterfaceInterface",
+				"java:global/EJBDemoEAR/EJBDemoEJB/MySessionBeanInterface!ee.tutor.MySessionBeanInterface", 
+				"java:app/EJBDemoEJB/MySessionBeanInterface!ee.tutor.MySessionBeanInterface", 
+				"java:module/MySessionBeanInterface!ee.tutor.MySessionBeanInterface", 
+				"java:global/EJBDemoEAR/EJBDemoEJB/MySessionBeanInterface", 
+				"java:app/EJBDemoEJB/MySessionBeanInterface", 
+				"java:module/MySessionBeanInterface", 
 				};
 		for (String l : lookups) {
 			System.out.println("--------lookup: " + l);
@@ -75,7 +74,7 @@ public class BeanServlet extends HttpServlet {
 		out.println("");
 		try {
 			// lookuped bean			
-			MySessionBean bean = InitialContext.doLookup("java:app/EJBDemoEJB/MySessionBean");
+			MySessionBeanInterface bean = InitialContext.doLookup("java:app/EJBDemoEJB/MySessionBeanInterface");
 			out.println("lookuped bean: " + bean.getData());
 		} catch (NamingException e) {
 			out.write(" error message: " + e.getMessage());
