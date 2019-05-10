@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ejb-jar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	xsi:schemaLocation="
-		http://xmlns.jcp.org/xml/ns/javaee 
-		http://xmlns.jcp.org/xml/ns/javaee/ejb-jar_3_2.xsd"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/ejb-jar_3_2.xsd"
 	version="3.2">
 	<display-name>EJBProject</display-name>
-	<ejb-client-jar>EJBProjectClient.jar</ejb-client-jar>
-	<!--  older version without annotations -->
 	<enterprise-beans>
 		<session>
 			<display-name>MyOldBean</display-name>
@@ -15,7 +11,8 @@
 			<home>ee.tutor.old.MyOldBeanHome</home>
 			<remote>ee.tutor.old.MyOldBeanComponent</remote>
 			<ejb-class>ee.tutor.old.MyOldBean</ejb-class>
-			<session-type>Stateless</session-type>	
+			<session-type>Stateless</session-type>
 		</session>
 	</enterprise-beans>
+	<ejb-client-jar>EJBProjectClient.jar</ejb-client-jar>
 </ejb-jar>

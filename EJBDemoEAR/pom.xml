@@ -1,0 +1,62 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ejb.demo</groupId>
+	<artifactId>EJBDemoEAR</artifactId>
+	<version>1</version>
+	<packaging>ear</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>ejb.demo</groupId>
+			<artifactId>EJBDemoWEB</artifactId>
+			<version>1</version>
+			<type>war</type>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>ejb.demo</groupId>
+			<artifactId>EJBDemoEJB</artifactId>
+			<version>1</version>
+			<type>ejb</type>
+			<scope>runtime</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<configuration>
+					<version>6</version>
+					<fileNameMapping>no-version</fileNameMapping>
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<skinnyWars>true</skinnyWars>
+					<applicationName>EJBDemoEAR</applicationName>
+					<displayName>EJBDemoEAR</displayName>
+					<finalName>EJBDemoEAR</finalName>
+					<modules>
+						<webModule>
+							<groupId>ejb.demo</groupId>
+							<artifactId>EJBDemoWEB</artifactId>
+							<!-- <contextRoot>/example</contextRoot> -->
+							<bundleFileName>EJBDemoWEB.war</bundleFileName>
+						</webModule>
+						<!-- -->
+						<ejbModule>
+							<groupId>ejb.demo</groupId>
+							<artifactId>EJBDemoEJB</artifactId>
+							<bundleFileName>EJBDemoEJB.jar</bundleFileName>
+						</ejbModule>
+						<!-- <jarModule> <groupId>ejb.demo</groupId> <artifactId>EJBDemoEJB</artifactId> 
+							<bundleFileName>EJBDemoEJB.jar</bundleFileName> </jarModule> -->
+					</modules>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

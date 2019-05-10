@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="EJBDemoEAR">
         <wb-resource deploy-path="/" source-path="/EarContent" tag="defaultRootSource"/>
-        <dependent-module archiveName="EJBDemoBeans.jar" deploy-path="/" handle="module:/resource/EJBDemoBeans/EJBDemoBeans">
-            <dependent-object/>
+        <dependent-module archiveName="EJBDemoWEB.war" deploy-path="/" handle="module:/resource/EJBDemoWEB/EJBDemoWEB">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="EJBDemoWEB.war" deploy-path="/" handle="module:/resource/EJBDemoWEB/EJBDemoWEB">
-            <dependent-object/>
+        <dependent-module archiveName="EJBDemoEJB.jar" deploy-path="/" handle="module:/resource/EJBDemoEJB/EJBDemoEJB">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="javax.ejb-api.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/javax/ejb/javax.ejb-api/3.2.2/javax.ejb-api-3.2.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="javax.transaction-api.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/javax/transaction/javax.transaction-api/1.3/javax.transaction-api-1.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="javax.servlet-api.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/javax/servlet/javax.servlet-api/4.0.1/javax.servlet-api-4.0.1.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
     </wb-module>
