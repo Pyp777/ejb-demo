@@ -36,16 +36,6 @@ public class BeanServlet extends HttpServlet {
 	@EJB
 	MyOldBeanComponent oldBean;
 	
-	/**
-	 * bean bindings
-	 * 
-	 * java:global/EJBDemoEAR/EJBDemoBeans/MySessionBean!ee.tutor.MySessionBean
-	 * java:app/EJBDemoBeans/MySessionBean!ee.tutor.MySessionBean
-	 * java:module/MySessionBean!ee.tutor.MySessionBean
-	 * ejb:EJBDemoEAR/EJBDemoBeans/MySessionBean!ee.tutor.MySessionBean
-	 * java:global/EJBDemoEAR/EJBDemoBeans/MySessionBean
-	 * java:app/EJBDemoBeans/MySessionBean java:module/MySessionBean
-	 */
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -62,13 +52,15 @@ public class BeanServlet extends HttpServlet {
 		out.println("injected bean: " + sessionBean.getData());
 
 		// check lookups
-		String[] lookups = new String[] {"java:global/EJBDemoEAR/EJBDemoBeans/MySessionBean!ee.tutor.MySessionBean",
-				"java:app/EJBDemoBeans/MySessionBean!ee.tutor.MySessionBean",
-				"java:module/MySessionBean!ee.tutor.MySessionBean",
-				"ejb:EJBDemoEAR/EJBDemoBeans/MySessionBean!ee.tutor.MySessionBean",
-				"java:global/EJBDemoEAR/EJBDemoBeans/MySessionBean",
-				"java:app/EJBDemoBeans/MySessionBean", 
-				"java:module/MySessionBean"}; 
+		String[] lookups = new String[] { 
+				"java:global/EJBDemoEAR/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean", 
+				"java:app/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean", 
+				"java:module/MySessionBean!ee.tutor.MySessionBean", 
+				"ejb:EJBDemoEAR/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean", 
+				"java:global/EJBDemoEAR/EJBDemoEJB/MySessionBean", 
+				"java:app/EJBDemoEJB/MySessionBean", 
+				"java:module/MySessionBean", 
+				};
 		for (String l : lookups) {
 			System.out.println("--------lookup: " + l);
 			try {
@@ -82,7 +74,7 @@ public class BeanServlet extends HttpServlet {
 		out.println("");
 		try {
 			// lookuped bean			
-			MySessionBean bean = InitialContext.doLookup("java:app/EJBDemoBeans/MySessionBean");
+			MySessionBean bean = InitialContext.doLookup("java:app/EJBDemoEJB/MySessionBean");
 			out.println("lookuped bean: " + bean.getData());
 		} catch (NamingException e) {
 			out.write(" error message: " + e.getMessage());

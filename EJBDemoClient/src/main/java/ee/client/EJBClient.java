@@ -7,24 +7,60 @@ import javax.naming.InitialContext;
 
 public class EJBClient {
 
+	/*
+	java:global/EJBDemoEAR/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean
+	java:app/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean
+	java:module/MySessionBean!ee.tutor.MySessionBean
+	ejb:EJBDemoEAR/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean
+	java:global/EJBDemoEAR/EJBDemoEJB/MySessionBean
+	java:app/EJBDemoEJB/MySessionBean
+	java:module/MySessionBean
+	*/
 	public static void main(String[] args) throws Exception {
-		Properties jndiProps = new Properties();
-		jndiProps.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.remote.client.InitialContextFactory");
-		jndiProps.put(Context.PROVIDER_URL, "http-remoting://localhost:8080");
-		// credentials
-		//jndiProps.put(Context.SECURITY_PRINCIPAL, "peter");
-		//jndiProps.put(Context.SECURITY_CREDENTIALS, "lois");
-		
-		// This is an important property to set if you want to do EJB invocations via
-		// the remote-naming project
-		jndiProps.put("jboss.naming.client.ejb.context", true);
-		// create a context passing these properties
-		Context ctx = new InitialContext(jndiProps);
-		// lookup the bean Foo
+		Properties jndiProps = getEnv("localhost:8080/EJBDemoWEB/");
 
-		Object bean = null; 
-		//bean = ctx.lookup("java:app/EJBDemoBeans/MySessionBean");
-		bean = ctx.lookup("EJBDemoBeans/MySessionBean");
+		Context ctx = new InitialContext(jndiProps);
+
+		Object bean = null;
+
+		// check lookups
+		String[] lookups = new String[] { 
+				"java:global/EJBDemoEAR/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean", 
+				"java:app/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean", 
+				"java:module/MySessionBean!ee.tutor.MySessionBean", 
+				"ejb:EJBDemoEAR/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean", 
+				"java:global/EJBDemoEAR/EJBDemoEJB/MySessionBean", 
+				"java:app/EJBDemoEJB/MySessionBean", 
+				"java:module/MySessionBean", 
+				};
+		for (String l : lookups) {
+			System.out.println("--------lookup: " + l);
+			try {
+				bean = ctx.lookup(l);
+				System.out.println("lookuped bean: " + bean.getClass().getName());
+			} catch (Exception e) {
+				System.out.println("lookuped bean failed....");
+			}
+		}
+
 		System.out.println("lookuped bean: " + bean);
+	}
+
+	public static Properties getEnv(final String server) {
+
+		Properties env = new Properties();
+		env.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.remote.client.InitialContextFactory");
+		env.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
+		env.put("jboss.naming.client.ejb.context", true);
+		env.put("jboss.naming.client.connect.options.org.xnio.Options.SASL_POLICY_NOPLAINTEXT", "false");
+		env.put("jboss.naming.client.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS", "false");
+
+		// credentials
+		env.put(Context.SECURITY_PRINCIPAL, "admin");
+		env.put(Context.SECURITY_CREDENTIALS, "admin");
+		
+		env.put(Context.PROVIDER_URL, "http-remoting://" + server);
+
+		return env;
 	}
 }
