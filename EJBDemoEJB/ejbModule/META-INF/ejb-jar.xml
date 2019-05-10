@@ -3,7 +3,7 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/ejb-jar_3_2.xsd"
 	version="3.2">
-	<display-name>EJBProject</display-name>
+	<display-name>EJBDemoEAR</display-name>
 	<enterprise-beans>
 		<session>
 			<display-name>MyOldBean</display-name>

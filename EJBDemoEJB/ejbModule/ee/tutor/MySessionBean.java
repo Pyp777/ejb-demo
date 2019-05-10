@@ -1,5 +1,6 @@
 package ee.tutor;
 
+import javax.ejb.Local;
 import javax.ejb.LocalBean;
 import javax.ejb.Remote;
 import javax.ejb.Schedule;
@@ -9,11 +10,9 @@ import javax.ejb.Stateless;
 /**
  * Session Bean implementation class SessionBean
  */
-@LocalBean
 @Stateless
-//@Stateful
-//@Remote
-public class MySessionBean {
+@Local(MySessionBeanInterface.class)
+public class MySessionBean  {
 
 	int count;
 	

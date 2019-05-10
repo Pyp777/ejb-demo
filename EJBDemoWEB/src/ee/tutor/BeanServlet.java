@@ -53,10 +53,11 @@ public class BeanServlet extends HttpServlet {
 
 		// check lookups
 		String[] lookups = new String[] { 
+				"ejb:EJBDemoEAR/EJBDemoEJB/MySessionBean",
+				"ejb:EJBDemoEAR/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean",
 				"java:global/EJBDemoEAR/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean", 
 				"java:app/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean", 
 				"java:module/MySessionBean!ee.tutor.MySessionBean", 
-				"ejb:EJBDemoEAR/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean", 
 				"java:global/EJBDemoEAR/EJBDemoEJB/MySessionBean", 
 				"java:app/EJBDemoEJB/MySessionBean", 
 				"java:module/MySessionBean", 

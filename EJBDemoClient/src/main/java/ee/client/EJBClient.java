@@ -4,35 +4,70 @@ import java.util.Properties;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
+import ee.tutor.MySessionBean;
+
+//import ee.tutor.MySessionBean;
 
 public class EJBClient {
 
-	/*
-	java:global/EJBDemoEAR/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean
-	java:app/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean
-	java:module/MySessionBean!ee.tutor.MySessionBean
-	ejb:EJBDemoEAR/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean
-	java:global/EJBDemoEAR/EJBDemoEJB/MySessionBean
-	java:app/EJBDemoEJB/MySessionBean
-	java:module/MySessionBean
-	*/
+	/**
+	 * for client is right jndi ejb:EJBDemoEAR/EJBDemoEJB/MySessionBean
+	 * 
+	 * https://docs.jboss.org/author/display/AS71/EJB+invocations+from+a+remote+client+using+JNDI
+	 * 
+	 * For stateless beans:
+	 * ejb:<app-name>/<module-name>/<distinct-name>/<bean-name>!<fully-qualified-classname-of-the-remote-interface>
+	 * 
+	 * For stateful beans:
+	 * ejb:<app-name>/<module-name>/<distinct-name>/<bean-name>!<fully-qualified-classname-of-the-remote-interface>?stateful
+	 * 
+	 * @param args
+	 * @throws Exception
+	 */
 	public static void main(String[] args) throws Exception {
-		Properties jndiProps = getEnv("localhost:8080/EJBDemoWEB/");
+		//lookupTest();
+		
+		lookupBean();
+	}
+
+	/**
+	 * direct lookup
+	 * @throws NamingException
+	 */
+	private static void lookupBean() throws NamingException {
+		Properties jndiProps = getEnv("localhost:8080");
+
+		Context ctx = new InitialContext(jndiProps);
+
+		Object bean = ctx.lookup("ejb:EJBDemoEAR/EJBDemoEJB/MySessionBean");// !ee.tutor.MySessionBean
+		System.out.println("lookuped bean: " + bean);	
+		
+		//org.jboss.ejb.client.naming.ejb.EjbNamingContext ctx = (org.jboss.ejb.client.naming.ejb.EjbNamingContext)bean; 
+		//System.out.println("lookuped bean: " + bean.getData());
+	}
+	
+	/**
+	 * check lookup names
+	 * @throws NamingException
+	 */
+	private static void lookupTest() throws NamingException {
+		Properties jndiProps = getEnv("localhost:8080");
 
 		Context ctx = new InitialContext(jndiProps);
 
 		Object bean = null;
 
 		// check lookups
-		String[] lookups = new String[] { 
-				"java:global/EJBDemoEAR/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean", 
-				"java:app/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean", 
-				"java:module/MySessionBean!ee.tutor.MySessionBean", 
-				"ejb:EJBDemoEAR/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean", 
-				"java:global/EJBDemoEAR/EJBDemoEJB/MySessionBean", 
-				"java:app/EJBDemoEJB/MySessionBean", 
-				"java:module/MySessionBean", 
-				};
+		String[] lookups = new String[] { "ejb:EJBDemoEAR/EJBDemoEJB/MySessionBean",
+				"ejb:EJBDemoEAR/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean",
+				"java:global/EJBDemoEAR/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean",
+				"java:app/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean",
+				"java:module/MySessionBean!ee.tutor.MySessionBean",
+				"ejb:EJBDemoEAR/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBean",
+				"java:global/EJBDemoEAR/EJBDemoEJB/MySessionBean", "java:app/EJBDemoEJB/MySessionBean",
+				"java:module/MySessionBean", };
 		for (String l : lookups) {
 			System.out.println("--------lookup: " + l);
 			try {
@@ -42,8 +77,6 @@ public class EJBClient {
 				System.out.println("lookuped bean failed....");
 			}
 		}
-
-		System.out.println("lookuped bean: " + bean);
 	}
 
 	public static Properties getEnv(final String server) {
@@ -58,7 +91,7 @@ public class EJBClient {
 		// credentials
 		env.put(Context.SECURITY_PRINCIPAL, "admin");
 		env.put(Context.SECURITY_CREDENTIALS, "admin");
-		
+
 		env.put(Context.PROVIDER_URL, "http-remoting://" + server);
 
 		return env;
