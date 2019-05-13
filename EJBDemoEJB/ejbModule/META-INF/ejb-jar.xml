@@ -8,9 +8,9 @@
 		<session>
 			<display-name>MyOldBean</display-name>
 			<ejb-name>MyOldBean</ejb-name>
-			<home>ee.tutor.old.MyOldBeanHome</home>
-			<remote>ee.tutor.old.MyOldBeanComponent</remote>
-			<ejb-class>ee.tutor.old.MyOldBean</ejb-class>
+			<home>ejb.session.old.MyOldBeanHome</home>
+			<remote>ejb.session.old.MyOldBeanComponent</remote>
+			<ejb-class>ejb.session.old.MyOldBean</ejb-class>
 			<session-type>Stateless</session-type>
 		</session>
 	</enterprise-beans>

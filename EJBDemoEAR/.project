@@ -4,7 +4,6 @@
 	<comment></comment>
 	<projects>
 		<project>EJBDemoBeans</project>
-		<project>EJBDemoWEB</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

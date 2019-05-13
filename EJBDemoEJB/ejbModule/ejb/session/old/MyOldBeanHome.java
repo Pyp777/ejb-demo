@@ -1,4 +1,4 @@
-package ee.tutor.old;
+package ejb.session.old;
 
 import java.rmi.RemoteException;
 
