@@ -2,11 +2,16 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>ejb.demo</groupId>
 	<artifactId>EJBDemoEJB</artifactId>
-	<version>1</version>
 	<packaging>jar</packaging>
 	
+	<parent>
+		<groupId>ejb.demo</groupId>
+		<artifactId>EJBProjectParent</artifactId>
+		<version>1</version>
+		<relativePath>../EJBDemoParent</relativePath>
+	</parent>
+
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/javax.ejb/javax.ejb-api -->
 		<dependency>
