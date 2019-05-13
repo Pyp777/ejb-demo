@@ -6,10 +6,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import ee.tutor.MySessionBean;
-
-//import ee.tutor.MySessionBean;
-
 public class EJBClient {
 
 	/**
@@ -44,7 +40,7 @@ public class EJBClient {
 		Object beanObject = ctx.lookup("ejb:EJBDemoEAR/EJBDemoEJB/MySessionBean!ee.tutor.MySessionBeanInterface");// !ee.tutor.MySessionBean
 		System.out.println("lookuped bean: " + beanObject);	
 		
-		ee.tutor.MySessionBeanInterface bean = (ee.tutor.MySessionBeanInterface)beanObject; 
+		ejb.session.MySessionBeanInterface bean = (ejb.session.MySessionBeanInterface)beanObject; 
 		System.out.println("lookuped bean: " + bean.getData());
 	}
 	

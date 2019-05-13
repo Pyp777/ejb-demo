@@ -94,6 +94,9 @@ public class MySessionBean {
 			
 			javax.mail.Message message = new MimeMessage(mailSession);
 			message.setRecipients(javax.mail.Message.RecipientType.TO, InternetAddress.parse("pavel.petr@gist.cz"));
+			message.setFrom();  
+			message.setSubject("Mail subject goes here"); 
+			message.setSentDate(new Date()); 
 			message.setText("Sending mail from bean");
 			Transport.send(message);
 			
