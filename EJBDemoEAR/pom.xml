@@ -35,9 +35,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-ear-plugin</artifactId>
+				<version>3.0.1</version>
 				<configuration>
-					<version>6</version>
-					<fileNameMapping>no-version</fileNameMapping>
+					<version>8</version>
+					<!-- <fileNameMapping>no-version</fileNameMapping> -->
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
 					<skinnyWars>true</skinnyWars>
 					<applicationName>EJBDemoEAR</applicationName>

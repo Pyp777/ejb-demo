@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>EJBDemoEJB</artifactId>
 	<packaging>jar</packaging>
-	
+
 	<parent>
 		<groupId>ejb.demo</groupId>
 		<artifactId>EJBProjectParent</artifactId>
@@ -33,10 +33,16 @@
 			<version>2.0.1</version>
 			<scope>provided</scope>
 		</dependency>
-		
+		<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+
 
 	</dependencies>
-	
+
 	<build>
 		<sourceDirectory>ejbModule</sourceDirectory>
 		<resources>

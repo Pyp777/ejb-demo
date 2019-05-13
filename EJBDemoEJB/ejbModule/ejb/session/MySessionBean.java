@@ -12,10 +12,16 @@ import javax.ejb.Stateless;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
+import javax.jms.Message;
 import javax.jms.MessageProducer;
+import javax.jms.Queue;
+import javax.jms.QueueSender;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 /**
  * Session Bean implementation class SessionBean
@@ -27,11 +33,17 @@ public class MySessionBean {
 
 	private Date last = new Date(); 
 
+	@Resource(lookup = "java:/jmx/myQueue")
+	Queue queue;
+	
 	@Resource(lookup = "java:/jmx/myTopic")
 	Topic topic;
 
 	@Resource(lookup = "java:comp/DefaultJMSConnectionFactory")
 	ConnectionFactory connectionFactory;
+
+	@Resource(lookup = "java:jboss/mail/Default")
+	javax.mail.Session mailSession;
 	
     /**
      * Default constructor. 
@@ -69,6 +81,23 @@ public class MySessionBean {
 			session.close();
 
 		} catch (JMSException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    @Schedule(second = "45", minute = "*", hour = "*", persistent = false)
+    public void sendMails() {
+		try {
+			//String mailndi = "java:jboss/mail/Default";
+			
+			System.out.println("-----------send mails--------" + Thread.currentThread().getName());
+			
+			javax.mail.Message message = new MimeMessage(mailSession);
+			message.setRecipients(javax.mail.Message.RecipientType.TO, InternetAddress.parse("pavel.petr@gist.cz"));
+			message.setText("Sending mail from bean");
+			Transport.send(message);
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     }
