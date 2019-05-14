@@ -42,7 +42,9 @@ public class MySessionBean {
 	@Resource(lookup = "java:comp/DefaultJMSConnectionFactory")
 	ConnectionFactory connectionFactory;
 
-	@Resource(lookup = "java:jboss/mail/Default")
+	// java:jboss/mail/Default
+	// java:jboss/mail/MyOtherMail
+	@Resource(lookup = "java:jboss/mail/MyOtherMail")
 	javax.mail.Session mailSession;
 	
     /**
@@ -81,7 +83,7 @@ public class MySessionBean {
 			session.close();
 
 		} catch (JMSException e) {
-			e.printStackTrace();
+			System.out.println("Send email error: " + e.getMessage());
 		}
     }
     
@@ -92,7 +94,7 @@ public class MySessionBean {
 			
 			System.out.println("-----------send mails--------" + Thread.currentThread().getName());
 			
-			javax.mail.Message message = new MimeMessage(mailSession);
+			MimeMessage message = new MimeMessage(mailSession);
 			message.setRecipients(javax.mail.Message.RecipientType.TO, InternetAddress.parse("pavel.petr@gist.cz"));
 			message.setFrom();  
 			message.setSubject("Mail subject goes here"); 
@@ -101,7 +103,7 @@ public class MySessionBean {
 			Transport.send(message);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Send email error: " + e.getMessage());
 		}
     }
     
