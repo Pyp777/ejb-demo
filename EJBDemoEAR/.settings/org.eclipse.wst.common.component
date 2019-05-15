@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="EJBDemoEAR">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/application" tag="defaultRootSource"/>
         <dependent-module archiveName="EJBDemoWEB.war" deploy-path="/" handle="module:/resource/EJBDemoWEB/EJBDemoWEB">
-            <dependent-object/>
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="EJBDemoEJB.jar" deploy-path="/" handle="module:/resource/EJBDemoEJB/EJBDemoEJB">
-            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="javax.mail-api-1.6.2.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/javax/mail/javax.mail-api/1.6.2/javax.mail-api-1.6.2.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
     </wb-module>
