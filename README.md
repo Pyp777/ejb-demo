@@ -1,2 +1,2 @@
 # ejb-demo
-Some ejb test for openshift/wildfly
+Some ejb tests for openshift/wildfly
