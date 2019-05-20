@@ -43,6 +43,7 @@
 					<applicationName>EJBDemoEAR</applicationName>
 					<displayName>EJBDemoEAR</displayName>
 					<finalName>EJBDemoEAR</finalName>
+					<outputDirectory>target</outputDirectory>
 					<modules>
 						<!-- web module -->
 						<webModule>
