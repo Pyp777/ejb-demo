@@ -4,18 +4,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.annotation.Resource;
-import javax.ejb.Local;
-import javax.ejb.LocalBean;
 import javax.ejb.Remote;
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
-import javax.jms.Message;
 import javax.jms.MessageProducer;
 import javax.jms.Queue;
-import javax.jms.QueueSender;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
