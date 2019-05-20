@@ -38,27 +38,33 @@
 				<version>3.0.1</version>
 				<configuration>
 					<version>8</version>
-					<!-- <fileNameMapping>no-version</fileNameMapping> -->
-					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<defaultLibBundleDir></defaultLibBundleDir>
 					<skinnyWars>true</skinnyWars>
 					<applicationName>EJBDemoEAR</applicationName>
 					<displayName>EJBDemoEAR</displayName>
 					<finalName>EJBDemoEAR</finalName>
 					<modules>
+						<!-- web module -->
 						<webModule>
 							<groupId>ejb.demo</groupId>
 							<artifactId>EJBDemoWEB</artifactId>
 							<!-- <contextRoot>/example</contextRoot> -->
 							<bundleFileName>EJBDemoWEB.war</bundleFileName>
 						</webModule>
-						<!-- -->
+						<!-- ejb module -->
 						<ejbModule>
 							<groupId>ejb.demo</groupId>
 							<artifactId>EJBDemoEJB</artifactId>
 							<bundleFileName>EJBDemoEJB.jar</bundleFileName>
 						</ejbModule>
-						<!-- <jarModule> <groupId>ejb.demo</groupId> <artifactId>EJBDemoEJB</artifactId> 
-							<bundleFileName>EJBDemoEJB.jar</bundleFileName> </jarModule> -->
+						<!-- jar module -->
+						<!-- 
+						<jarModule>
+							<groupId>ejb.demo</groupId>
+							<artifactId>EJBDemoEJB</artifactId>
+							<bundleFileName>EJBDemoEJB.jar</bundleFileName>
+						</jarModule>
+						-->
 					</modules>
 				</configuration>
 			</plugin>
