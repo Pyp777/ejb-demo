@@ -6,21 +6,27 @@
 	<artifactId>EJBProjectParent</artifactId>
 	<version>1</version>
 	<packaging>pom</packaging>
-	
+
 	<modules>
 		<!-- build in this order -->
 		<module>../EJBDemoEJB</module>
 		<module>../EJBDemoWEB</module>
 		<module>../EJBDemoEAR</module>
 	</modules>
-	
+
 	<dependencies>
-		<!-- https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api -->
-		<dependency>
-			<groupId>javax.annotation</groupId>
-			<artifactId>javax.annotation-api</artifactId>
-			<version>1.3.2</version>
-			<scope>provided</scope>
-		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<generateBackupPoms>false</generateBackupPoms>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
