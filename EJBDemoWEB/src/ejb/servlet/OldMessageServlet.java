@@ -2,7 +2,6 @@ package ejb.servlet;
 
 import java.io.IOException;
 
-import javax.annotation.Resource;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
