@@ -40,8 +40,8 @@ public class MySessionBean {
 
 	// java:jboss/mail/Default
 	// java:jboss/mail/MyOtherMail
-	@Resource(lookup = "java:jboss/mail/MyOtherMail")
-	javax.mail.Session mailSession;
+	//@Resource(lookup = "java:jboss/mail/MyOtherMail")
+	//javax.mail.Session mailSession;
 	
     /**
      * Default constructor. 
@@ -89,7 +89,7 @@ public class MySessionBean {
 			//String mailndi = "java:jboss/mail/Default";
 			
 			System.out.println("-----------send mails--------" + Thread.currentThread().getName());
-			
+			/*
 			MimeMessage message = new MimeMessage(mailSession);
 			message.setRecipients(javax.mail.Message.RecipientType.TO, InternetAddress.parse("pavel.petr@gist.cz"));
 			message.setFrom();  
@@ -97,6 +97,7 @@ public class MySessionBean {
 			message.setSentDate(new Date()); 
 			message.setText("Sending mail from bean");
 			Transport.send(message);
+			*/
 			
 		} catch (Exception e) {
 			System.out.println("Send email error: " + e.getMessage());
